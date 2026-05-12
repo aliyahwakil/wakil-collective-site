@@ -644,36 +644,39 @@ footer { background:var(--charcoal);display:flex;align-items:center;justify-cont
         </div>
         <div class="contact-right-col">
           <p class="form-ttl">Send a message</p>
-          <div data-fs-success style="display:none; padding:1.75rem; background:var(--mint-lt); border:1px solid var(--mint); margin-bottom:1rem;">
+          <!-- Success message - hidden by default -->
+          <div id="wc-success-msg" style="display:none; padding:1.75rem; background:var(--mint-lt); border:1px solid var(--mint); margin-bottom:1rem;">
             <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--forest);margin-bottom:0.4rem;">Thank you for reaching out.</div>
             <div style="font-size:0.85rem;font-weight:300;color:var(--green-dim);line-height:1.7;">We've received your message and will be in touch within 48 hours. We look forward to learning more about your organization.</div>
           </div>
-          <div data-fs-error style="display:none; padding:1rem; background:#fef2f2; border:1px solid #fca5a5; font-size:0.82rem; color:#dc2626; margin-bottom:1rem;"></div>
+
+          <!-- Error message - hidden by default -->
+          <div id="wc-error-msg" style="display:none; padding:1rem; background:#fef2f2; border:1px solid #fca5a5; font-size:0.82rem; color:#dc2626; margin-bottom:1rem;">
+            Something went wrong. Please try again or email us directly at aliyah@wakilcollective.com
+          </div>
 
           <form id="wc-contact-form">
             <div class="f-row">
               <div class="fg">
                 <label class="fl" for="fn">First Name</label>
-                <input class="fi" type="text" id="fn" name="first_name" placeholder="Jane" required data-fs-field />
-                <span data-fs-error="first_name" style="font-size:0.72rem;color:#dc2626;"></span>
+                <input class="fi" type="text" id="fn" name="first_name" placeholder="Jane" required />
               </div>
               <div class="fg">
                 <label class="fl" for="ln">Last Name</label>
-                <input class="fi" type="text" id="ln" name="last_name" placeholder="Smith" data-fs-field />
+                <input class="fi" type="text" id="ln" name="last_name" placeholder="Smith" />
               </div>
             </div>
             <div class="fg">
               <label class="fl" for="em">Email</label>
-              <input class="fi" type="email" id="em" name="email" placeholder="jane@organization.com" required data-fs-field />
-              <span data-fs-error="email" style="font-size:0.72rem;color:#dc2626;"></span>
+              <input class="fi" type="email" id="em" name="email" placeholder="jane@organization.com" required />
             </div>
             <div class="fg">
               <label class="fl" for="org">Organization</label>
-              <input class="fi" type="text" id="org" name="organization" placeholder="Your practice or organization" data-fs-field />
+              <input class="fi" type="text" id="org" name="organization" placeholder="Your practice or organization" />
             </div>
             <div class="fg">
               <label class="fl" for="sv">Area of Interest</label>
-              <select class="fi" id="sv" name="area_of_interest" data-fs-field>
+              <select class="fi" id="sv" name="area_of_interest">
                 <option value="">Select...</option>
                 <option>Health Data Strategy</option>
                 <option>AI Readiness Assessment</option>
@@ -685,17 +688,58 @@ footer { background:var(--charcoal);display:flex;align-items:center;justify-cont
             </div>
             <div class="fg">
               <label class="fl" for="mg">Message</label>
-              <textarea class="fi" id="mg" name="message" placeholder="Tell us about your organization and where you're hoping to go with AI or data strategy…" required data-fs-field></textarea>
-              <span data-fs-error="message" style="font-size:0.72rem;color:#dc2626;"></span>
+              <textarea class="fi" id="mg" name="message" placeholder="Tell us about your organization and where you're hoping to go with AI or data strategy…" required></textarea>
             </div>
-            <button class="btn-submit" type="submit" data-fs-submit-btn>Send Message →</button>
+            <button class="btn-submit" type="submit" id="wc-submit-btn">Send Message →</button>
           </form>
 
           <script>
-            window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-            formspree('initForm', { formElement: '#wc-contact-form', formId: 'mkoyjoej' });
+            (function(){
+              var form = document.getElementById('wc-contact-form');
+              var successMsg = document.getElementById('wc-success-msg');
+              var errorMsg = document.getElementById('wc-error-msg');
+              var submitBtn = document.getElementById('wc-submit-btn');
+
+              if(!form) return;
+
+              form.addEventListener('submit', function(e){
+                e.preventDefault();
+
+                // Disable button and show sending state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending…';
+                errorMsg.style.display = 'none';
+
+                var data = new FormData(form);
+
+                fetch('https://formspree.io/f/mkoyjoej', {
+                  method: 'POST',
+                  body: data,
+                  headers: { 'Accept': 'application/json' }
+                })
+                .then(function(response){
+                  if(response.ok){
+                    // Success — show confirmation, hide form
+                    form.style.display = 'none';
+                    successMsg.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message →';
+                  } else {
+                    return response.json().then(function(data){
+                      throw new Error(data.error || 'Submission failed');
+                    });
+                  }
+                })
+                .catch(function(err){
+                  // Error — show error message, re-enable button
+                  errorMsg.style.display = 'block';
+                  submitBtn.disabled = false;
+                  submitBtn.textContent = 'Send Message →';
+                  console.error('Form error:', err);
+                });
+              });
+            })();
           </script>
-          <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
         </div>
       </div>
     </div>
@@ -911,6 +955,19 @@ function showPage(name){
   document.querySelectorAll('.mobile-menu-tab').forEach(t=>t.classList.remove('active'));
   var mobtab = document.getElementById('mob-tab-'+name);
   if(mobtab) mobtab.classList.add('active');
+  // If navigating to assessment without payment, show landing only
+  if(name === 'assessment'){
+    var paid = sessionStorage.getItem('wc_assessment_paid');
+    if(!paid){
+      // Reset to landing state — hide quiz and results
+      var landing = document.getElementById('as-landing');
+      var quiz = document.getElementById('as-quiz-screen');
+      var results = document.getElementById('as-results-screen');
+      if(landing) landing.style.display='block';
+      if(quiz) quiz.classList.remove('on');
+      if(results) results.classList.remove('on');
+    }
+  }
   window.scrollTo({top:0,behavior:'smooth'});
   return false;
 }
@@ -1257,15 +1314,13 @@ function handleSubmit(e){
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    el('as-begin-btn') && el('as-begin-btn').addEventListener('click', function(){
-      el('as-landing').style.display='none';
-      renderQuestion(0);
-      show('as-quiz-screen');
-      el('as-quiz-screen').scrollIntoView({behavior:'smooth'});
-    });
+    // Assessment only unlocks via Stripe redirect (?assessment=unlocked)
+    // The begin button is now a Stripe payment link — no JS needed here.
     el('as-next-btn').addEventListener('click', nextQ);
     el('as-back-btn').addEventListener('click', prevQ);
     el('as-retake-btn').addEventListener('click', function(){
+      // Clear payment session so they pay again to retake
+      sessionStorage.removeItem('wc_assessment_paid');
       hide('as-results-screen');
       el('as-landing').style.display='block';
       window.scrollTo({top:0,behavior:'smooth'});
