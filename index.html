@@ -353,11 +353,11 @@ footer { background:var(--charcoal);display:flex;align-items:center;justify-cont
   </div>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#about-strip">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#creds">Credentials</a></li>
+      <li><a href="#about-strip" onclick="navTo('about-strip')">About</a></li>
+      <li><a href="#services" onclick="navTo('services')">Services</a></li>
+      <li><a href="#creds" onclick="navTo('creds')">Credentials</a></li>
     </ul>
-    <a href="#contact-home" class="nav-cta">Contact</a>
+    <a href="#contact-home" class="nav-cta" onclick="navTo('contact-home')">Contact</a>
     <!-- Hamburger -->
     <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
@@ -370,10 +370,10 @@ footer { background:var(--charcoal);display:flex;align-items:center;justify-cont
   <a class="mobile-menu-tab active" id="mob-tab-home" href="#" onclick="mobilePage('home')">Home</a>
   <a class="mobile-menu-tab" id="mob-tab-assessment" href="#" onclick="mobilePage('assessment')">AI Assessment</a>
   <a class="mobile-menu-tab" id="mob-tab-portfolio" href="#" onclick="mobilePage('portfolio')">Founder Portfolio</a>
-  <a href="#about-strip" class="mobile-menu-tab" onclick="closeMobileMenu()">About</a>
-  <a href="#services" class="mobile-menu-tab" onclick="closeMobileMenu()">Services</a>
-  <a href="#creds" class="mobile-menu-tab" onclick="closeMobileMenu()">Credentials</a>
-  <a href="#contact-home" class="mobile-menu-cta" onclick="closeMobileMenu()">Contact →</a>
+  <a href="#about-strip" class="mobile-menu-tab" onclick="closeMobileMenu();navTo('about-strip')">About</a>
+  <a href="#services" class="mobile-menu-tab" onclick="closeMobileMenu();navTo('services')">Services</a>
+  <a href="#creds" class="mobile-menu-tab" onclick="closeMobileMenu();navTo('creds')">Credentials</a>
+  <a href="#contact-home" class="mobile-menu-cta" onclick="closeMobileMenu();navTo('contact-home')">Contact →</a>
 </div>
 
 <!-- ══════════ HOME PAGE ══════════ -->
@@ -969,6 +969,23 @@ function showPage(name){
     }
   }
   window.scrollTo({top:0,behavior:'smooth'});
+  return false;
+}
+
+function navTo(sectionId){
+  // If not on home page, switch to home first then scroll
+  var homePage = document.getElementById('page-home');
+  if(!homePage.classList.contains('active')){
+    showPage('home');
+    // Wait for page to render then scroll
+    setTimeout(function(){
+      var el = document.getElementById(sectionId);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  } else {
+    var el = document.getElementById(sectionId);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
   return false;
 }
 
