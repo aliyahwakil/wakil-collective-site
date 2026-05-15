@@ -1133,18 +1133,47 @@ function handleSubmit(e){
 
 <!-- RESULTS SCREEN -->
 <div class="as-screen" id="as-results-screen">
-  <div id="as-tier-box" class="as-tier"></div>
-  <div class="as-vis" id="as-vis"></div>
-  <div class="as-domains" id="as-domains"></div>
-  <div style="margin-bottom:2rem;">
-    <div class="as-recs-title">Your next steps</div>
-    <div id="as-recs"></div>
+  <div style="background:var(--charcoal);padding:2.5rem;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;">
+      <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:var(--mint);">Wakil Collective</div>
+      <div id="as-report-date" style="font-size:0.65rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3);"></div>
+    </div>
+    <div style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--off-white);line-height:1.15;margin-bottom:0.5rem;">AI Readiness Assessment<br>Results Report</div>
+    <div style="font-size:0.8rem;font-weight:300;color:rgba(255,255,255,0.4);">Confidential · For internal use only</div>
   </div>
-  <div class="as-cta">
-    <p class="as-cta-text">Want expert guidance<br>on <em>your results?</em></p>
-    <button class="as-cta-btn" id="as-contact-btn">Book a Discovery Call →</button>
+  <div id="as-tier-box" style="padding:2rem 2.5rem;border-left:5px solid var(--green);border-top:1px solid var(--rule);"></div>
+  <div style="padding:1.75rem 2.5rem;background:var(--white);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:1.5rem;">
+    <div class="as-vis" id="as-vis" style="flex:1;display:flex;gap:3px;"></div>
+    <div id="as-score-label" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--ink);white-space:nowrap;"></div>
   </div>
-  <button class="as-retake" id="as-retake-btn">Retake Assessment</button>
+  <div style="padding:2rem 2.5rem;background:var(--off-white);border-bottom:1px solid var(--rule);">
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.6rem;"><span style="display:inline-block;width:16px;height:1px;background:var(--green);"></span>Personalized Summary</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--ink);margin-bottom:1rem;letter-spacing:-0.01em;">What your scores tell us</div>
+    <div id="as-narrative" style="font-size:0.9rem;font-weight:300;line-height:1.9;color:var(--mid);"></div>
+  </div>
+  <div style="padding:2rem 2.5rem;background:var(--white);border-bottom:1px solid var(--rule);">
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.6rem;"><span style="display:inline-block;width:16px;height:1px;background:var(--green);"></span>Domain Breakdown</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--ink);margin-bottom:1.5rem;letter-spacing:-0.01em;">Your scores, interpreted</div>
+    <div id="as-domains"></div>
+  </div>
+  <div style="padding:2rem 2.5rem;background:var(--charcoal);border-bottom:1px solid rgba(255,255,255,0.06);">
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.6rem;"><span style="display:inline-block;width:16px;height:1px;background:var(--green);"></span>What This Means for Your Journey</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--off-white);margin-bottom:1.5rem;">Where you are in the process</div>
+    <div id="as-timeline" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);"></div>
+  </div>
+  <div style="background:var(--green-dim);padding:2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--off-white);line-height:1.2;margin-bottom:0.5rem;">Want to discuss your results?</div>
+      <div style="font-size:0.82rem;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.6;max-width:380px;">Reach out and we'll be in touch within 48 hours to set up a strategy call.</div>
+    </div>
+    <button class="as-cta-btn" id="as-contact-btn" style="background:var(--white);color:var(--green-dim);border:none;font-family:'Epilogue',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.9rem 1.75rem;white-space:nowrap;">Contact Wakil Collective →</button>
+  </div>
+  <div style="padding:1.5rem 2.5rem;background:var(--off-white);border-top:1px solid var(--rule);">
+    <p style="font-size:0.72rem;font-weight:300;color:var(--mid);line-height:1.7;">This report is based on self-reported responses and is intended as a strategic orientation tool, not a clinical or legal compliance assessment. Results reflect the information provided at the time of completion. Wakil Collective recommends working with a qualified advisor before making AI implementation decisions. © 2026 Wakil Collective · aliyah@wakilcollective.com</p>
+  </div>
+  <div style="text-align:center;padding:2rem;">
+    <button class="as-retake" id="as-retake-btn">Retake Assessment</button>
+  </div>
 </div>
 
 <footer>
@@ -1249,62 +1278,112 @@ function handleSubmit(e){
     show('as-results-screen');
 
     var total = scores.reduce(function(a,b){return a+b;},0);
-    var tier, desc, color;
+    var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var now=new Date();
+    el('as-report-date').textContent='AI Readiness Report · '+months[now.getMonth()]+' '+now.getFullYear();
+
+    var tier,color,tierDesc,narrative,tlActive;
     if(total<=16){
-      tier='Not Yet Ready'; color='#c0435f';
-      desc='Your practice has important foundations to build before pursuing AI implementation. This is not a setback \u2014 it\'s clarity. Knowing where you stand is the first step toward a successful AI strategy.';
+      tier='Not Yet Ready';color='#c0435f';tlActive=0;
+      tierDesc='Your practice has important foundations to build before pursuing AI implementation. This is not a setback — it's clarity. Understanding where you stand is the essential first step toward a successful AI strategy.';
+      narrative='Your assessment reveals <strong>significant gaps across several foundational domains</strong> that would make AI implementation difficult to sustain at this stage. The areas most critical to address are your lowest-scoring domains — these represent the building blocks that everything else depends on.<br><br>The encouraging news is that identifying these gaps now — before investing in AI tools or vendors — saves your practice from costly missteps. <strong>A focused preparation phase will put you in a much stronger position</strong> when you're ready to move forward.';
     } else if(total<=28){
-      tier='Ready with Preconditions'; color='#c4a020';
-      desc='Your practice has meaningful momentum but specific gaps that should be addressed before full AI implementation. With targeted preparation in key areas, you can move to readiness efficiently.';
+      tier='Ready with Preconditions';color='#c4a020';tlActive=1;
+      tierDesc='Your practice has meaningful momentum and genuine interest in AI adoption. You have real strengths to build on — but specific gaps need to be addressed before implementation. With targeted preparation, you can move to full readiness efficiently.';
+      narrative='Your results show a <strong>mixed but promising picture</strong>. There are genuine strengths in your assessment — areas where your practice is ahead of many organizations at this stage. At the same time, specific gaps remain that would create friction if you moved to AI implementation today.<br><br>The path forward is not a full overhaul — it's <strong>targeted, sequenced preparation</strong> in your lowest-scoring domains. Addressing these in the right order will make any eventual AI implementation significantly more likely to succeed and stick.';
     } else {
-      tier='Ready Now'; color='#2d7a5f';
-      desc='Your practice demonstrates strong AI readiness across critical domains. You have the foundations, alignment, and infrastructure to pursue AI implementation strategically and responsibly.';
+      tier='Ready Now';color='#2d7a5f';tlActive=2;
+      tierDesc='Your practice demonstrates strong AI readiness across critical domains. You have the foundations, alignment, and infrastructure to pursue AI implementation strategically and responsibly.';
+      narrative='Your assessment reflects <strong>strong readiness across the domains that matter most</strong> for successful AI adoption. You have strategic clarity, operational awareness, and the organizational conditions that allow implementations to succeed rather than stall.<br><br>This positions your practice to move into <strong>vendor evaluation and structured piloting</strong> with confidence. The priority now is selecting the right use case, the right tool, and the right evaluation framework — done thoughtfully rather than rushed.';
     }
 
-    el('as-tier-box').style.borderLeftColor = color;
-    el('as-tier-box').innerHTML = '<div class="as-tier-lbl">Your Readiness Tier</div><div class="as-tier-name" style="color:'+color+'">'+tier+'</div><div class="as-tier-score">Total score: '+total+' out of 40</div><p class="as-tier-desc">'+desc+'</p>';
+    el('as-tier-box').style.background=total>=29?'var(--mint-lt)':(total>=17?'#fdf3dc':'#fce8ec)');
+    el('as-tier-box').innerHTML=
+      '<div style="font-size:0.6rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:'+color+';margin-bottom:0.4rem;">Your Readiness Tier</div>'+
+      '<div style="font-family:'DM Serif Display',serif;font-size:2.2rem;color:'+color+';line-height:1;margin-bottom:0.5rem;">'+tier+'</div>'+
+      '<div style="font-size:0.78rem;font-weight:500;color:var(--mid);margin-bottom:1rem;">Total Score: '+total+' out of 40 · 8 Domains Evaluated</div>'+
+      '<p style="font-size:0.92rem;font-weight:300;line-height:1.8;color:var(--ink);max-width:600px;">'+tierDesc+'</p>';
 
-    // Visual bar
-    var visHTML = '';
+    var visHTML='';
     for(var i=0;i<40;i++){
-      var cls = 'as-vis-block';
-      if(i < total) cls += (total>=29?' on':' mid');
-      visHTML += '<div class="'+cls+'"></div>';
+      var bc=(i<total)?(total>=29?'var(--green)':(total>=17?'#c4a020':'#c0435f')):'var(--rule)';
+      visHTML+='<div style="height:10px;flex:1;background:'+bc+';border-radius:2px;min-width:3px;"></div>';
     }
-    el('as-vis').innerHTML = visHTML;
+    el('as-vis').innerHTML=visHTML;
+    el('as-score-label').innerHTML=total+' <span style="font-size:0.72rem;font-weight:400;color:var(--mid);">/ 40</span>';
+    el('as-narrative').innerHTML=narrative;
 
-    // Domain breakdown
-    var domHTML = '';
-    var dnames = ['Strategic Fit','Workflow Clarity','Data Readiness','Technology Readiness','Staff Readiness','Governance & Compliance','Patient Equity & Trust','Measurement Capacity'];
-    for(var j=0;j<8;j++){
-      domHTML += '<div class="as-dom-row"><div class="as-dom-name">'+dnames[j]+'</div><div class="as-dom-bar"><div class="as-dom-fill" style="width:'+((scores[j]/5)*100)+'%"></div></div><div class="as-dom-score">'+scores[j]+'/5</div></div>';
-    }
-    el('as-domains').innerHTML = domHTML;
-
-    // Recs — find 3 lowest
-    var indexed = scores.map(function(s,i){return{s:s,i:i};}).sort(function(a,b){return a.s-b.s;});
-    var recTexts = [
-      '<strong>Define your use case.</strong> Before evaluating any AI tool, identify one specific workflow problem and get leadership aligned on what success looks like.',
-      '<strong>Map your target workflow.</strong> Document the process end-to-end, identify where delays and rework happen, and quantify the pain points with real numbers.',
-      '<strong>Audit your data quality.</strong> Identify which data fields matter for your use case and assess completeness, accuracy, and accessibility before any pilot.',
-      '<strong>Assess your technology stack.</strong> Document your current systems and find out which support APIs or data exports \u2014 this determines what AI tools can realistically connect.',
-      '<strong>Build your adoption team.</strong> Identify a staff champion, create a basic training plan, and establish who handles escalations when the AI makes errors.',
-      '<strong>Establish a governance pathway.</strong> Define how you\'ll review AI vendors, handle patient consent, and maintain human oversight of AI-assisted decisions.',
-      '<strong>Build equity into your planning.</strong> Assess whether your patient population includes groups at higher risk of AI bias, and address language access and transparency proactively.',
-      '<strong>Establish your baseline metrics.</strong> Before implementing anything, start tracking the key outcomes you want AI to improve \u2014 so you can prove impact after.'
+    var dnames=['Strategic Fit','Workflow Clarity','Data Readiness','Technology Readiness','Staff Readiness','Governance & Compliance','Patient Equity & Trust','Measurement Capacity'];
+    var dinterp=[
+      ['You have a clearly defined use case, leadership buy-in, and measurable success criteria — a strong foundation everything else builds on.',
+       'You have general direction but haven't fully aligned on success criteria or secured a leadership sponsor. Sharpening this before moving forward will make every subsequent step easier.',
+       'No clear AI goal means any tool you adopt is likely to underperform or go unused. Identifying one specific problem to solve is the essential first step.'],
+      ['You have fully mapped the target workflow with pain points quantified — a clear evaluation rubric for assessing AI tools.',
+       'You have a general sense of the workflow but haven't documented it end-to-end. This mapping is foundational to selecting the right AI tool.',
+       'The target workflow is unclear, making it very difficult to evaluate AI tools meaningfully. Documenting the process step-by-step is a critical early step.'],
+      ['Your data is reliable, structured, and accessible — a strong foundation for AI implementation that most practices underestimate.',
+       'You have some usable data but gaps in completeness or structure remain. A focused data audit will clarify what's workable and what needs attention.',
+       'Fragmented or incomplete data is your most significant barrier. AI tools depend on reliable data inputs — a data audit is essential before any vendor evaluation.'],
+      ['Your core systems are digital and integration-ready, significantly expanding the range of AI tools available to your practice.',
+       'You have some digital systems but integration is limited. Understanding which systems support APIs will determine which AI tools can connect to your infrastructure.',
+       'Mostly manual or disconnected systems limit your AI options. Documenting your technology landscape is necessary before vendor conversations.'],
+      ['You have champions, a training plan, and clear escalation pathways — putting you significantly ahead of most practices at this stage.',
+       'Some staff are open to change but there's no formal ownership or training plan. Identifying a clear internal champion will smooth the adoption process.',
+       'Staff resistance or lack of ownership is a serious adoption risk. AI tools fail most often not because of technology — but because of people.'],
+      ['You have a defined governance pathway covering vendor review, consent, and oversight — protecting your practice and building trust.',
+       'Some review processes exist but they're inconsistent. Formalizing a basic governance pathway provides important protection before any AI tool goes live.',
+       'No governance framework creates significant risk in a clinical setting. Basic policies for vendor review and patient consent are non-negotiable before implementation.'],
+      ['Equity and consent are actively built into your planning — increasingly expected by regulators and patients alike.',
+       'Equity considerations are on your radar but not yet formalized. Document how you'll assess whether AI tools perform equitably across your patient population.',
+       'Equity risks have not been assessed, creating ethical and regulatory exposure. Evaluate how any AI tool may perform across different patient demographics before piloting.'],
+      ['You have a baseline and a structured evaluation plan — what allows you to demonstrate value and make evidence-based decisions about scaling.',
+       'Some metrics are available but no formal evaluation plan exists. Establishing your baseline now makes it possible to prove impact afterward.',
+       'Without baseline data, it will be difficult to demonstrate whether any AI implementation is working. Start tracking key metrics now, even informally.']
     ];
 
-    var gaps = indexed.slice(0,3).filter(function(x){return x.s<5;});
-    var recsHTML = '';
-    if(gaps.length===0){
-      recsHTML = '<p style="font-size:0.88rem;font-weight:300;color:var(--mid);padding:1rem 0;">Your practice is performing strongly across all domains. Focus on selecting the right AI use case and running a structured pilot with a clear evaluation plan.</p>';
-    } else {
-      gaps.forEach(function(x,n){
-        recsHTML += '<div class="as-rec"><div class="as-rec-num">0'+(n+1)+'</div><div class="as-rec-text">'+recTexts[x.i]+'</div></div>';
-      });
+    var domHTML='';
+    for(var j=0;j<8;j++){
+      var s=scores[j];
+      var barColor=s>=5?'var(--green)':(s>=3?'#c4a020':'#c0435f)');
+      var badge,bStyle;
+      if(s>=5){badge='Strong';bStyle='background:var(--mint-lt);color:var(--green);border:1px solid var(--mint);';}
+      else if(s>=3){badge='Developing';bStyle='background:#fdf3dc;color:#8a6200;border:1px solid rgba(212,168,83,0.3);';}
+      else{badge='Priority Gap';bStyle='background:#fce8ec;color:#c0435f;border:1px solid rgba(192,67,95,0.2);';}
+      var ii=s>=5?0:(s>=3?1:2);
+      domHTML+=
+        '<div style="padding:1.25rem 0;border-bottom:1px solid var(--rule);">'+
+          '<div style="display:grid;grid-template-columns:1fr 120px 44px;align-items:center;gap:1rem;margin-bottom:0.6rem;">'+
+            '<div style="font-size:0.85rem;font-weight:600;color:var(--ink);">'+dnames[j]+'</div>'+
+            '<div style="height:6px;background:var(--rule);border-radius:3px;overflow:hidden;"><div style="height:6px;width:'+((s/5)*100)+'%;background:'+barColor+';border-radius:3px;"></div></div>'+
+            '<div style="font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);text-align:right;">'+s+'/5</div>'+
+          '</div>'+
+          '<div style="font-size:0.78rem;font-weight:300;line-height:1.65;color:var(--mid);">'+
+            '<span style="display:inline-block;font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;margin-right:0.5rem;'+bStyle+'">'+badge+'</span>'+
+            dinterp[j][ii]+
+          '</div>'+
+        '</div>';
     }
-    el('as-recs').innerHTML = recsHTML;
-    el('as-results-screen').scrollIntoView({behavior:'smooth', block:'start'});
+    el('as-domains').innerHTML=domHTML;
+
+    var tlData=[
+      {label:'Not Yet Ready',desc:'Foundation work needed',detail:'Significant groundwork required across data, technology, and governance before a pilot is viable.'},
+      {label:'Ready with Preconditions',desc:'Targeted preparation recommended',detail:'Address specific gaps first. A focused preparation phase leads to a much stronger, more sustainable implementation.'},
+      {label:'Ready Now',desc:'Ready to move toward piloting',detail:'Strong foundations across all domains. Ready to begin vendor evaluation and a structured pilot.'}
+    ];
+    var tlHTML='';
+    tlData.forEach(function(t,idx){
+      var active=idx===tlActive;
+      tlHTML+=
+        '<div style="'+(active?'background:rgba(45,122,95,0.2);border-left:3px solid var(--green);':'background:rgba(255,255,255,0.03);')+'padding:1.5rem 1.25rem;">'+
+          '<div style="font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.5rem;">'+t.label+'</div>'+
+          '<div style="font-family:'DM Serif Display',serif;font-size:1rem;color:var(--off-white);margin-bottom:0.4rem;line-height:1.3;">'+t.desc+'</div>'+
+          '<div style="font-size:0.75rem;font-weight:300;color:rgba(255,255,255,0.4);line-height:1.6;">'+t.detail+'</div>'+
+          (active?'<div style="font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--mint);margin-top:0.75rem;">You are here</div>':'')+
+        '</div>';
+    });
+    el('as-timeline').innerHTML=tlHTML;
+
+    el('as-results-screen').scrollIntoView({behavior:'smooth',block:'start'});
   }
 
   function reset(){
