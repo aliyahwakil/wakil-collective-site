@@ -93,13 +93,8 @@ body {
 </div>
 
 <script>
-  // Store payment flag so main site knows they've paid
-  sessionStorage.setItem('wc_assessment_paid', 'true');
-  sessionStorage.setItem('wc_goto_assessment', 'true');
-
-  // Update button to open assessment in same tab
-  // The main site reads wc_goto_assessment on load and opens the quiz
-  document.getElementById('start-btn').href = 'https://wakilcollective.com';
+  // Pass the unlock param directly in the URL - simplest and most reliable
+  document.getElementById('start-btn').href = 'https://wakilcollective.com?assessment=unlocked';
 </script>
 </body>
 </html>

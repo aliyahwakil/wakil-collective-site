@@ -337,12 +337,13 @@ footer { background:var(--charcoal);display:flex;align-items:center;justify-cont
 }
 </style>
 <script>
-// Run immediately before page renders - check for Stripe redirect
+// Run immediately before page renders - check for assessment unlock param
 (function(){
   var params = new URLSearchParams(window.location.search);
   if(params.get('assessment') === 'unlocked'){
     sessionStorage.setItem('wc_assessment_paid', 'true');
     sessionStorage.setItem('wc_goto_assessment', 'true');
+    // Clean URL
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 })();
@@ -1412,22 +1413,30 @@ function handleSubmit(e){
   // Wire up buttons after DOM ready
   document.addEventListener('DOMContentLoaded', function(){
 
-    // Auto-unlock assessment if returning from Stripe payment
+    // Auto-unlock assessment if returning from payment
     if(sessionStorage.getItem('wc_goto_assessment') === 'true'){
       sessionStorage.removeItem('wc_goto_assessment');
-      // Switch to assessment tab
-      showPage('assessment');
-      // Wait for DOM to settle then open quiz
+      // Step 1: activate assessment page div directly
+      document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+      var assessPage = document.getElementById('page-assessment');
+      if(assessPage) assessPage.classList.add('active');
+      // Step 2: update nav tabs
+      document.querySelectorAll('.nav-tab').forEach(function(t){ t.classList.remove('active'); });
+      var assessTab = document.getElementById('tab-assessment');
+      if(assessTab) assessTab.classList.add('active');
+      // Step 3: hide landing, show quiz
       setTimeout(function(){
         var landing = document.getElementById('as-landing');
         var quizScreen = document.getElementById('as-quiz-screen');
+        var resultsScreen = document.getElementById('as-results-screen');
         if(landing) landing.style.display = 'none';
+        if(resultsScreen) resultsScreen.classList.remove('on');
         if(quizScreen){
           quizScreen.classList.add('on');
           renderQuestion(0);
           window.scrollTo({top:0, behavior:'smooth'});
         }
-      }, 300);
+      }, 150);
     }
 
     // Assessment only unlocks via Stripe redirect (?assessment=unlocked)
