@@ -959,13 +959,15 @@ function showPage(name){
   if(name === 'assessment'){
     var paid = sessionStorage.getItem('wc_assessment_paid');
     if(!paid){
-      // Reset to landing state — hide quiz and results
-      var landing = document.getElementById('as-landing');
-      var quiz = document.getElementById('as-quiz-screen');
-      var results = document.getElementById('as-results-screen');
-      if(landing) landing.style.display='block';
-      if(quiz) quiz.classList.remove('on');
-      if(results) results.classList.remove('on');
+      // Small delay to let page render first
+      setTimeout(function(){
+        var landing = document.getElementById('as-landing');
+        var quiz = document.getElementById('as-quiz-screen');
+        var results = document.getElementById('as-results-screen');
+        if(landing) landing.style.display='block';
+        if(quiz) quiz.classList.remove('on');
+        if(results) results.classList.remove('on');
+      }, 50);
     }
   }
   window.scrollTo({top:0,behavior:'smooth'});
@@ -1402,12 +1404,21 @@ function handleSubmit(e){
     // Auto-unlock assessment if returning from Stripe payment
     var urlParams = new URLSearchParams(window.location.search);
     if(urlParams.get('assessment') === 'unlocked'){
-      showPage('assessment');
-      el('as-landing').style.display='none';
-      renderQuestion(0);
-      show('as-quiz-screen');
-      // Clean URL without reloading
+      sessionStorage.setItem('wc_assessment_paid', 'true');
+      // Clean URL immediately
       window.history.replaceState({}, document.title, window.location.pathname);
+      // Switch to assessment page then unlock after render
+      showPage('assessment');
+      setTimeout(function(){
+        var landing = document.getElementById('as-landing');
+        var quizScreen = document.getElementById('as-quiz-screen');
+        if(landing) landing.style.display = 'none';
+        if(quizScreen){
+          quizScreen.classList.add('on');
+          renderQuestion(0);
+          quizScreen.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      }, 200);
     }
 
     // Assessment only unlocks via Stripe redirect (?assessment=unlocked)
