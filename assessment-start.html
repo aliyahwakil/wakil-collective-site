@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Starting Your Assessment — Wakil Collective</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green:#2d7a5f; --mint-lt:#ebf6f1; --mint:#c8e8da;
+  --cream:#f8f6f1; --ink:#0c0f0e; --mid:#556068;
+}
+body {
+  font-family:'Epilogue',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+}
+.card {
+  text-align:center;
+  max-width:480px;
+  width:100%;
+}
+.logo {
+  font-family:'DM Serif Display',serif;
+  font-size:1.1rem;
+  color:var(--green);
+  margin-bottom:3rem;
+  letter-spacing:0.02em;
+}
+.check {
+  width:64px;height:64px;
+  background:var(--mint-lt);
+  border:2px solid var(--mint);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+  font-size:1.5rem;
+}
+.title {
+  font-family:'DM Serif Display',serif;
+  font-size:1.8rem;
+  color:var(--ink);
+  margin-bottom:0.75rem;
+  line-height:1.15;
+}
+.sub {
+  font-size:0.9rem;
+  font-weight:300;
+  color:var(--mid);
+  line-height:1.75;
+  margin-bottom:2.5rem;
+}
+.btn {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  background:var(--green);
+  color:#fff;
+  font-family:'Epilogue',sans-serif;
+  font-size:0.78rem;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:1rem 2rem;
+  text-decoration:none;
+  border-radius:4px;
+  transition:background 0.2s;
+}
+.btn:hover { background:#1e5241; }
+.note {
+  font-size:0.72rem;
+  font-weight:300;
+  color:var(--mid);
+  margin-top:1.5rem;
+  line-height:1.6;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Wakil Collective</div>
+  <div class="check">✓</div>
+  <h1 class="title">Payment confirmed.<br>You're all set.</h1>
+  <p class="sub">Your AI Readiness Assessment is ready. Click below to begin — your personalized results report will be generated immediately upon completion.</p>
+  <a href="https://wakilcollective.com" id="start-btn" class="btn">Begin My Assessment →</a>
+  <p class="note">Takes approximately 5 minutes.<br>Results are instant and confidential.</p>
+</div>
+
+<script>
+  // Store payment flag so main site knows they've paid
+  sessionStorage.setItem('wc_assessment_paid', 'true');
+  sessionStorage.setItem('wc_goto_assessment', 'true');
+
+  // Update button to open assessment in same tab
+  // The main site reads wc_goto_assessment on load and opens the quiz
+  document.getElementById('start-btn').href = 'https://wakilcollective.com';
+</script>
+</body>
+</html>
