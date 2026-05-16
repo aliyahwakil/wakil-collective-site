@@ -336,6 +336,17 @@ footer { background:var(--charcoal);display:flex;align-items:center;justify-cont
   .exp-item{grid-template-columns:1fr}
 }
 </style>
+<script>
+// Run immediately before page renders - check for Stripe redirect
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  if(params.get('assessment') === 'unlocked'){
+    sessionStorage.setItem('wc_assessment_paid', 'true');
+    sessionStorage.setItem('wc_goto_assessment', 'true');
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+})();
+</script>
 </head>
 <body>
 
@@ -1402,13 +1413,11 @@ function handleSubmit(e){
   document.addEventListener('DOMContentLoaded', function(){
 
     // Auto-unlock assessment if returning from Stripe payment
-    var urlParams = new URLSearchParams(window.location.search);
-    if(urlParams.get('assessment') === 'unlocked'){
-      sessionStorage.setItem('wc_assessment_paid', 'true');
-      // Clean URL immediately
-      window.history.replaceState({}, document.title, window.location.pathname);
-      // Switch to assessment page then unlock after render
+    if(sessionStorage.getItem('wc_goto_assessment') === 'true'){
+      sessionStorage.removeItem('wc_goto_assessment');
+      // Switch to assessment tab
       showPage('assessment');
+      // Wait for DOM to settle then open quiz
       setTimeout(function(){
         var landing = document.getElementById('as-landing');
         var quizScreen = document.getElementById('as-quiz-screen');
@@ -1416,9 +1425,9 @@ function handleSubmit(e){
         if(quizScreen){
           quizScreen.classList.add('on');
           renderQuestion(0);
-          quizScreen.scrollIntoView({behavior:'smooth', block:'start'});
+          window.scrollTo({top:0, behavior:'smooth'});
         }
-      }, 200);
+      }, 300);
     }
 
     // Assessment only unlocks via Stripe redirect (?assessment=unlocked)
