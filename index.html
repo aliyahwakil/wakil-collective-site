@@ -1286,15 +1286,15 @@ function handleSubmit(e){
     if(total<=16){
       tier='Not Yet Ready';color='#c0435f';tlActive=0;
       tierDesc='Your practice has important foundations to build before pursuing AI implementation. This is not a setback — it's clarity. Understanding where you stand is the essential first step toward a successful AI strategy.';
-      narrative='Your assessment reveals <strong>significant gaps across several foundational domains</strong> that would make AI implementation difficult to sustain at this stage. The areas most critical to address are your lowest-scoring domains — these represent the building blocks that everything else depends on.<br><br>The encouraging news is that identifying these gaps now — before investing in AI tools or vendors — saves your practice from costly missteps. <strong>A focused preparation phase will put you in a much stronger position</strong> when you're ready to move forward.';
+      narrative='Your assessment reveals <strong>significant gaps across several foundational domains</strong> that would make AI implementation difficult to sustain at this stage. The areas most critical to address are your lowest-scoring domains — these represent the building blocks that everything else depends on.<br><br>The encouraging news is that identifying these gaps now — before investing in AI tools or vendors — saves your practice from costly missteps. <strong>Clarity on where you stand is itself a strategic advantage.</strong>';
     } else if(total<=28){
       tier='Ready with Preconditions';color='#c4a020';tlActive=1;
       tierDesc='Your practice has meaningful momentum and genuine interest in AI adoption. You have real strengths to build on — but specific gaps need to be addressed before implementation. With targeted preparation, you can move to full readiness efficiently.';
-      narrative='Your results show a <strong>mixed but promising picture</strong>. There are genuine strengths in your assessment — areas where your practice is ahead of many organizations at this stage. At the same time, specific gaps remain that would create friction if you moved to AI implementation today.<br><br>The path forward is not a full overhaul — it's <strong>targeted, sequenced preparation</strong> in your lowest-scoring domains. Addressing these in the right order will make any eventual AI implementation significantly more likely to succeed and stick.';
+      narrative='Your results show a <strong>mixed but promising picture</strong>. There are genuine strengths in your assessment — areas where your practice is ahead of many organizations at this stage. At the same time, specific gaps remain that would create friction if you moved to AI implementation today.<br><br>The path forward is not a full overhaul — it's <strong>targeted, focused preparation</strong> in your lowest-scoring domains. Organizations that address these gaps deliberately tend to see significantly stronger implementation outcomes.';
     } else {
       tier='Ready Now';color='#2d7a5f';tlActive=2;
       tierDesc='Your practice demonstrates strong AI readiness across critical domains. You have the foundations, alignment, and infrastructure to pursue AI implementation strategically and responsibly.';
-      narrative='Your assessment reflects <strong>strong readiness across the domains that matter most</strong> for successful AI adoption. You have strategic clarity, operational awareness, and the organizational conditions that allow implementations to succeed rather than stall.<br><br>This positions your practice to move into <strong>vendor evaluation and structured piloting</strong> with confidence. The priority now is selecting the right use case, the right tool, and the right evaluation framework — done thoughtfully rather than rushed.';
+      narrative='Your assessment reflects <strong>strong readiness across the domains that matter most</strong> for successful AI adoption. You have strategic clarity, operational awareness, and the organizational conditions that allow implementations to succeed rather than stall.<br><br>This positions your practice to move into <strong>vendor evaluation and structured piloting</strong> with confidence. The quality of what comes next depends on the rigor of how you approach it.';
     }
 
     el('as-tier-box').style.background=total>=29?'var(--mint-lt)':(total>=17?'#fdf3dc':'#fce8ec)');
@@ -1315,30 +1315,30 @@ function handleSubmit(e){
 
     var dnames=['Strategic Fit','Workflow Clarity','Data Readiness','Technology Readiness','Staff Readiness','Governance & Compliance','Patient Equity & Trust','Measurement Capacity'];
     var dinterp=[
-      ['You have a clearly defined use case, leadership buy-in, and measurable success criteria — a strong foundation everything else builds on.',
-       'You have general direction but haven't fully aligned on success criteria or secured a leadership sponsor. Sharpening this before moving forward will make every subsequent step easier.',
-       'No clear AI goal means any tool you adopt is likely to underperform or go unused. Identifying one specific problem to solve is the essential first step.'],
-      ['You have fully mapped the target workflow with pain points quantified — a clear evaluation rubric for assessing AI tools.',
-       'You have a general sense of the workflow but haven't documented it end-to-end. This mapping is foundational to selecting the right AI tool.',
-       'The target workflow is unclear, making it very difficult to evaluate AI tools meaningfully. Documenting the process step-by-step is a critical early step.'],
-      ['Your data is reliable, structured, and accessible — a strong foundation for AI implementation that most practices underestimate.',
-       'You have some usable data but gaps in completeness or structure remain. A focused data audit will clarify what's workable and what needs attention.',
-       'Fragmented or incomplete data is your most significant barrier. AI tools depend on reliable data inputs — a data audit is essential before any vendor evaluation.'],
-      ['Your core systems are digital and integration-ready, significantly expanding the range of AI tools available to your practice.',
-       'You have some digital systems but integration is limited. Understanding which systems support APIs will determine which AI tools can connect to your infrastructure.',
-       'Mostly manual or disconnected systems limit your AI options. Documenting your technology landscape is necessary before vendor conversations.'],
-      ['You have champions, a training plan, and clear escalation pathways — putting you significantly ahead of most practices at this stage.',
-       'Some staff are open to change but there's no formal ownership or training plan. Identifying a clear internal champion will smooth the adoption process.',
-       'Staff resistance or lack of ownership is a serious adoption risk. AI tools fail most often not because of technology — but because of people.'],
-      ['You have a defined governance pathway covering vendor review, consent, and oversight — protecting your practice and building trust.',
-       'Some review processes exist but they're inconsistent. Formalizing a basic governance pathway provides important protection before any AI tool goes live.',
-       'No governance framework creates significant risk in a clinical setting. Basic policies for vendor review and patient consent are non-negotiable before implementation.'],
-      ['Equity and consent are actively built into your planning — increasingly expected by regulators and patients alike.',
-       'Equity considerations are on your radar but not yet formalized. Document how you'll assess whether AI tools perform equitably across your patient population.',
-       'Equity risks have not been assessed, creating ethical and regulatory exposure. Evaluate how any AI tool may perform across different patient demographics before piloting.'],
-      ['You have a baseline and a structured evaluation plan — what allows you to demonstrate value and make evidence-based decisions about scaling.',
-       'Some metrics are available but no formal evaluation plan exists. Establishing your baseline now makes it possible to prove impact afterward.',
-       'Without baseline data, it will be difficult to demonstrate whether any AI implementation is working. Start tracking key metrics now, even informally.']
+      ['You have a clearly defined use case, leadership alignment, and measurable success criteria. This level of strategic clarity is a meaningful differentiator — most organizations struggle here.',
+       'There is general interest and direction, but alignment on a specific use case and success criteria is still developing. This gap tends to surface later in the process when decisions become harder to make.',
+       'The absence of a clearly defined AI goal is a significant risk factor. Without strategic focus, AI investments tend to be reactive rather than purposeful — and outcomes reflect that.'],
+      ['Your target workflow is well-documented with pain points quantified. This depth of operational understanding is uncommon and positions your practice well for meaningful AI evaluation.',
+       'There is awareness of the target workflow, but the picture is incomplete. Gaps in workflow clarity often lead to mismatched AI solutions that don't reflect how care is actually delivered.',
+       'The target workflow is not clearly defined. This is a foundational gap — AI tools are only as effective as the processes they're designed to support.'],
+      ['Your data is reliable, structured, and accessible. This is a significant asset — data readiness is one of the most common barriers to successful AI adoption and you've cleared it.',
+       'Your data landscape has usable elements, but inconsistencies and gaps remain. These limitations will affect the performance of any AI tool that depends on your data as an input.',
+       'Data fragmentation or quality issues represent a high-impact gap. AI systems are highly sensitive to data quality — unreliable inputs consistently produce unreliable outputs.'],
+      ['Your technology infrastructure is digital and integration-capable. This significantly broadens the range of AI solutions that are viable for your practice.',
+       'Your technology environment is partially digital, but integration limitations exist. These constraints shape which AI tools can realistically be deployed in your setting.',
+       'Your current technology environment presents meaningful integration challenges. The gap between existing systems and AI-ready infrastructure is an important factor to understand before any vendor evaluation.'],
+      ['Your organization has identified clear champions, a training structure, and defined accountability. Staff readiness at this level is rare and substantially increases the likelihood of successful adoption.',
+       'There is openness to change among some staff, but formal ownership and accountability structures are not yet in place. Adoption outcomes tend to be uneven without this foundation.',
+       'Staff readiness is a significant concern. Organizational resistance or the absence of a clear internal owner is one of the leading causes of AI implementation failure — often more so than technical issues.'],
+      ['You have a defined governance structure that addresses vendor evaluation, patient consent, and oversight. This maturity level meaningfully reduces implementation risk in a clinical environment.',
+       'Some governance practices exist, but they are inconsistent. In a clinical context, governance gaps carry both operational and regulatory implications that become more complex as AI use expands.',
+       'The absence of a governance framework is a high-priority concern in any healthcare setting. Oversight of AI decision-making, vendor accountability, and patient consent are foundational requirements — not optional additions.'],
+      ['Equity and patient trust are actively embedded in your planning. This reflects a level of institutional awareness that is both ethically sound and increasingly expected by regulators and patients.',
+       'Equity considerations are present but not yet systematically integrated. As AI use expands, the impact on different patient populations becomes harder to manage retroactively.',
+       'Equity and trust dimensions have not yet been formally assessed. In healthcare AI, this gap carries both patient impact and institutional risk — particularly as scrutiny of clinical AI continues to increase.'],
+      ['You have established baseline metrics and a structured approach to evaluating impact. This capacity to measure outcomes is what distinguishes organizations that learn from implementations from those that don't.',
+       'Some relevant metrics exist, but a structured evaluation framework is not yet in place. Without a defined baseline, it becomes difficult to determine what AI has actually changed — or whether it should be continued.',
+       'The absence of baseline measurement capacity limits your ability to evaluate AI impact objectively. Organizations in this position often find it difficult to make evidence-based decisions about whether to expand, adjust, or discontinue an implementation.']
     ];
 
     var domHTML='';
