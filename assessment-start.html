@@ -93,8 +93,27 @@ body {
 </div>
 
 <script>
-  // Pass the unlock param directly in the URL - simplest and most reliable
-  document.getElementById('start-btn').href = 'https://wakilcollective.com?assessment=unlocked';
+  // Only unlock if a valid Stripe session_id is present
+  var params = new URLSearchParams(window.location.search);
+  var sessionId = params.get('session_id');
+
+  if(sessionId && sessionId.length > 10){
+    // Valid Stripe session — generate a one-time token
+    var token = sessionId.slice(-12) + Date.now().toString(36);
+    sessionStorage.setItem('wc_assessment_paid', 'true');
+    sessionStorage.setItem('wc_goto_assessment', 'true');
+    sessionStorage.setItem('wc_token', token);
+    document.getElementById('start-btn').href = 'https://wakilcollective.com';
+  } else {
+    // No valid session — block access
+    document.querySelector('.title').textContent = 'Payment required.';
+    document.querySelector('.sub').textContent = 'Please complete payment before accessing the assessment.';
+    document.getElementById('start-btn').href = 'https://wakilcollective.com';
+    document.getElementById('start-btn').textContent = 'Return to site';
+    document.querySelector('.check').textContent = '×';
+    document.querySelector('.check').style.background = '#fce8ec';
+    document.querySelector('.check').style.borderColor = '#f5a0b0';
+  }
 </script>
 </body>
 </html>

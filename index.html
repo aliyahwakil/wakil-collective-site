@@ -338,18 +338,8 @@ footer { background:var(--charcoal);display:flex;align-items:center;justify-cont
 </style>
 <script>
 (function(){
-  console.log('HEAD SCRIPT RUNNING');
-  console.log('Full URL:', window.location.href);
-  console.log('Search:', window.location.search);
-  var params = new URLSearchParams(window.location.search);
-  var val = params.get('assessment');
-  console.log('assessment param:', val);
-  if(val === 'unlocked'){
-    console.log('UNLOCKED - setting flags');
-    sessionStorage.setItem('wc_assessment_paid', 'true');
-    sessionStorage.setItem('wc_goto_assessment', 'true');
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
+  // Only unlock via sessionStorage set by assessment-start.html after Stripe payment
+  // URL param alone is NOT sufficient - prevents bypass
 })();
 </script>
 </head>
