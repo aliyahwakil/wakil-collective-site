@@ -88,31 +88,70 @@ body {
   <div class="check">✓</div>
   <h1 class="title">Payment confirmed.<br>You're all set.</h1>
   <p class="sub">Your AI Readiness Assessment is ready. Click below to begin — your personalized results report will be generated immediately upon completion.</p>
-  <a href="https://wakilcollective.com" id="start-btn" class="btn">Begin My Assessment →</a>
+  <div style="margin-bottom:1.5rem;text-align:left;">
+    <div style="margin-bottom:1rem;">
+      <label style="display:block;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);margin-bottom:0.4rem;">Full Name</label>
+      <input id="user-name" type="text" placeholder="Jane Smith" required
+        style="width:100%;padding:0.8rem 1rem;border:1px solid rgba(45,122,95,0.2);border-radius:4px;font-family:Epilogue,sans-serif;font-size:0.9rem;color:var(--ink);outline:none;background:#fff;" />
+    </div>
+    <div style="margin-bottom:1rem;">
+      <label style="display:block;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);margin-bottom:0.4rem;">Email Address</label>
+      <input id="user-email" type="email" placeholder="jane@practice.com" required
+        style="width:100%;padding:0.8rem 1rem;border:1px solid rgba(45,122,95,0.2);border-radius:4px;font-family:Epilogue,sans-serif;font-size:0.9rem;color:var(--ink);outline:none;background:#fff;" />
+    </div>
+    <div>
+      <label style="display:block;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);margin-bottom:0.4rem;">Practice or Organization</label>
+      <input id="user-org" type="text" placeholder="Your practice name"
+        style="width:100%;padding:0.8rem 1rem;border:1px solid rgba(45,122,95,0.2);border-radius:4px;font-family:Epilogue,sans-serif;font-size:0.9rem;color:var(--ink);outline:none;background:#fff;" />
+    </div>
+  </div>
+  <div id="form-error" style="display:none;font-size:0.78rem;color:#c0435f;margin-bottom:1rem;">Please enter your name and email to continue.</div>
+  <a href="#" id="start-btn" class="btn" onclick="handleStart(event)">Begin My Assessment →</a>
   <p class="note">Takes approximately 5 minutes.<br>Results are instant and confidential.</p>
 </div>
 
 <script>
-  // Only unlock if a valid Stripe session_id is present
   var params = new URLSearchParams(window.location.search);
   var sessionId = params.get('session_id');
 
   if(sessionId && sessionId.length > 10){
-    // Valid Stripe session — generate a one-time token
     var token = sessionId.slice(-12) + Date.now().toString(36);
     sessionStorage.setItem('wc_assessment_paid', 'true');
     sessionStorage.setItem('wc_goto_assessment', 'true');
     sessionStorage.setItem('wc_token', token);
-    document.getElementById('start-btn').href = 'https://wakilcollective.com';
+    sessionStorage.setItem('wc_stripe_session', sessionId);
   } else {
-    // No valid session — block access
     document.querySelector('.title').textContent = 'Payment required.';
     document.querySelector('.sub').textContent = 'Please complete payment before accessing the assessment.';
-    document.getElementById('start-btn').href = 'https://wakilcollective.com';
     document.getElementById('start-btn').textContent = 'Return to site';
+    document.getElementById('start-btn').onclick = function(){ window.location.href='https://wakilcollective.com'; };
     document.querySelector('.check').textContent = '×';
     document.querySelector('.check').style.background = '#fce8ec';
     document.querySelector('.check').style.borderColor = '#f5a0b0';
+    // Hide the form if no valid session
+    var inputs = document.querySelectorAll('input');
+    inputs.forEach(function(i){ i.closest('div').style.display='none'; });
+  }
+
+  function handleStart(e){
+    e.preventDefault();
+    var name = document.getElementById('user-name').value.trim();
+    var email = document.getElementById('user-email').value.trim();
+    var org = document.getElementById('user-org') ? document.getElementById('user-org').value.trim() : '';
+    var errEl = document.getElementById('form-error');
+
+    if(!name || !email){
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+
+    // Save to sessionStorage so main site can use for results email
+    sessionStorage.setItem('wc_user_name', name);
+    sessionStorage.setItem('wc_user_email', email);
+    sessionStorage.setItem('wc_user_org', org);
+
+    window.location.href = 'https://wakilcollective.com';
   }
 </script>
 </body>

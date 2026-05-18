@@ -1392,6 +1392,81 @@ function handleSubmit(e){
     el('as-timeline').innerHTML=tlHTML;
 
     el('as-results-screen').scrollIntoView({behavior:'smooth',block:'start'});
+
+    // Send results emails
+    setTimeout(function(){
+      var userName  = sessionStorage.getItem('wc_user_name')  || 'Not provided';
+      var userEmail = sessionStorage.getItem('wc_user_email') || 'Not provided';
+      var userOrg   = sessionStorage.getItem('wc_user_org')   || 'Not provided';
+      var dnames = ['Strategic Fit','Workflow Clarity','Data Readiness','Technology Readiness','Staff Readiness','Governance & Compliance','Patient Equity & Trust','Measurement Capacity'];
+      var domainBreakdown = dnames.map(function(n,i){ return n+': '+scores[i]+'/5'; }).join(' | ');
+
+      // 1. Send to Aliyah
+      var aliyahBody = new FormData();
+      aliyahBody.append('_subject', 'New AI Assessment Completed — ' + userName);
+      aliyahBody.append('name', userName);
+      aliyahBody.append('email', userEmail);
+      aliyahBody.append('organization', userOrg);
+      aliyahBody.append('readiness_tier', tier);
+      aliyahBody.append('total_score', total + ' / 40');
+      aliyahBody.append('domain_scores', domainBreakdown);
+      aliyahBody.append('_replyto', userEmail);
+
+      fetch('https://formspree.io/f/mkoyjoej', {
+        method: 'POST',
+        body: aliyahBody,
+        headers: { 'Accept': 'application/json' }
+      }).catch(function(err){ console.log('Aliyah results send failed:', err); });
+
+      // 2. Send results copy to client
+      if(userEmail && userEmail !== 'Not provided'){
+        var tierSummary = '';
+        if(total<=16){
+          tierSummary = 'Your assessment reveals important foundations to build before pursuing AI implementation. This clarity is itself a strategic advantage — organizations that understand their gaps before investing tend to achieve far better outcomes.';
+        } else if(total<=28){
+          tierSummary = 'Your assessment shows meaningful momentum and genuine strengths — but specific gaps remain that are worth addressing before full implementation. Organizations that take a deliberate, sequenced approach to preparation consistently see stronger results.';
+        } else {
+          tierSummary = 'Your assessment reflects strong readiness across the domains that matter most. You have the strategic clarity, operational awareness, and organizational conditions that allow AI implementations to succeed rather than stall.';
+        }
+
+        var clientBody = new FormData();
+        clientBody.append('_subject', 'Your AI Readiness Results — Wakil Collective');
+        clientBody.append('_replyto', 'aliyah@wakilcollective.com');
+        clientBody.append('email', userEmail);
+        clientBody.append('name', userName);
+        var msgLines = [
+          'Hello ' + userName + ',',
+          '',
+          'Thank you for completing the Wakil Collective AI Readiness Assessment. Here is a summary of your results.',
+          '',
+          'READINESS TIER: ' + tier,
+          'TOTAL SCORE: ' + total + ' out of 40',
+          '',
+          'DOMAIN SCORES:',
+          dnames.map(function(n,idx){ return '- ' + n + ': ' + scores[idx] + '/5'; }).join('\n'),
+          '',
+          tierSummary,
+          '',
+          'If you would like to discuss your results and explore next steps, our team would be happy to connect.',
+          'You can reach us at aliyah@wakilcollective.com.',
+          '',
+          'We look forward to hearing from you.',
+          '',
+          'Warm regards,',
+          'Aliyah Wakil',
+          'Founder, Wakil Collective',
+          'aliyah@wakilcollective.com',
+          'wakilcollective.com'
+        ];
+        clientBody.append('message', msgLines.join('\n'));
+
+        fetch('https://formspree.io/f/mkoyjoej', {
+          method: 'POST',
+          body: clientBody,
+          headers: { 'Accept': 'application/json' }
+        }).catch(function(err){ console.log('Client results send failed:', err); });
+      }
+    }, 500);
   }
 
   function reset(){
